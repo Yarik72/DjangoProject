@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+    {% for user in users %}
+    <h1>{{user.name}}</h1>
+    <h2>{{user.balance}}</h2>
+    {% endfor %}
+    {% if error %}
+    <h4>{{error}}</h4>
+    {% endif %}
+        <form method="post">
+        {% csrf_token %}
+
+        <label for="username">Введите логин</label>
+        <input type="text" id="username" name="username"
+               value="{% if form %}{{ form.username.value|default:'' }}{% else %}{{ username|default:'' }}{% endif %}"
+               maxlength="30" required>
+
+        <label for="password">Введите пароль</label>
+        <input type="text" id="password" name="password"
+               value="{% if form %}{{ form.password.value|default:'' }}{% else %}{{ password|default:'' }}{% endif %}"
+               minlength="8" required>
+
+        <label for="repeat_password">Повторите пароль</label>
+        <input type="text" id="repeat_password" name="repeat_password"
+               value="{% if form %}{{ form.repeat_password.value|default:'' }}{% else %}{{ repeat_password|default:'' }}{% endif %}"
+               minlength="8" required>
+
+        <label for="age">Введите свой возраст</label>
+        <input type="number" id="age" name="age"
+               value="{% if form %}{{ form.age.value|default:'' }}{% else %}{{ age|default:'' }}{% endif %}"
+               min="1" max="999" required>
+
+        <button type="submit">Отправить</button>
+    </form>
+    {% if message %}
+        <center><h3>{{message}}</h3></center>
+    {% endif %}
+</body>
+</html>
